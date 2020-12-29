@@ -9,7 +9,7 @@ import {
 
 import Header from './Header';
 
-export default (props) => {
+const BDLayout = (props) => {
   return <>
     <GlobalStyle />
     <Layout>
@@ -20,3 +20,5 @@ export default (props) => {
     </Layout>
   </>
 };
+
+export default BDLayout;

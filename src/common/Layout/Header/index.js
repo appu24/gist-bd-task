@@ -4,10 +4,11 @@ import {
   BDHeader
 } from './style'
 
-export default (props) => {
+const Header = () => {
   return <>
     <BDHeader>
       <div className="logo" />
     </BDHeader>
   </>
 };
+export default Header;

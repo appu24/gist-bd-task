@@ -2,7 +2,7 @@ import React, {
   useState,
   useEffect
 } from 'react'
-
+import PropTypes from 'prop-types';
 import {
   Typography,
   Card
@@ -19,7 +19,7 @@ import Layout from '../../common/Layout';
 const { Title } = Typography;
 const octokit = new Octokit();
 
-export default ({history, match, location}) => {
+const GistView = ({history, match, location}) => {
 
   const [data, setData] = useState({});
   const [gistID, setGistID] = useState("");
@@ -73,6 +73,7 @@ export default ({history, match, location}) => {
       setLoading(false);
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -84,6 +85,7 @@ export default ({history, match, location}) => {
     } else {
       getGistData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gistID]);
 
   const getGistData = async () => {
@@ -103,9 +105,11 @@ export default ({history, match, location}) => {
   const renderKeys = (gistData, key, dataType) => {
     switch(dataType) {
       case 'link':
-        return <a href={gistData[key]} target="_blank">
-          {gistData[key]}
-        </a>;
+        return <p>
+          <a href={gistData[key]} target="_blank">
+            {gistData[key]}
+          </a>
+        </p>;
       case 'date':
         return <p>{new Date(gistData[key]).toDateString()}</p>
       case 'text':
@@ -122,37 +126,43 @@ export default ({history, match, location}) => {
         </> : <>
           <Title level={4} underline>Gist Details:</Title>
           {gistDetailsKey.map((keyObj, index) => {
-            return <GistDetail>
+            return <GistDetail key={index}>
               <p className="label">{keyObj.label}</p>
-              <p>{renderKeys(data, keyObj.key, keyObj.type)}</p>
+              {renderKeys(data, keyObj.key, keyObj.type)}
             </GistDetail>;
           })}
 
           <Title level={4} underline>Owner Details:</Title>
           {gistOwnerKeys.map((keyObj, index) => {
-            return <GistDetail>
+            return <GistDetail key={index}>
               <p className="label">{keyObj.label}</p>
-              <p>{renderKeys(data.owner, keyObj.key, keyObj.type)}</p>
+              {renderKeys(data.owner, keyObj.key, keyObj.type)}
             </GistDetail>;
           })}
 
-          <>
-            {(data.files && Object.keys(data.files).length) ? <>
-              {Object.keys(data.files).map((filename, index) => {
-                return <>
-                  <Title level={4} underline>File - {filename}</Title>
-                  {gistFileKeys.map((keyObj, index) => {
-                    return <GistDetail>
-                      <p className="label">{keyObj.label}</p>
-                      <p>{renderKeys(data.files[filename], keyObj.key, keyObj.type)}</p>
-                    </GistDetail>;
-                  })}
-                </>;
-              })}
-            </> : null}
-          </>
+          {(data.files && Object.keys(data.files).length) ? <>
+            {Object.keys(data.files).map((filename, index) => {
+              return <div key={index}>
+                <Title level={4} underline>File - {filename}</Title>
+                {gistFileKeys.map((keyObj, index) => {
+                  return <GistDetail key={index}>
+                    <p className="label">{keyObj.label}</p>
+                    {renderKeys(data.files[filename], keyObj.key, keyObj.type)}
+                  </GistDetail>;
+                })}
+              </div>;
+            })}
+          </> : null}
         </>}
       </Card>
     </GistDetailsBlock>
   </Layout>
 };
+
+GistView.propTypes = {
+  history: PropTypes.object,
+  match: PropTypes.object,
+  location: PropTypes.object
+}
+
+export default GistView;

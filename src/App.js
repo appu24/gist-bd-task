@@ -8,7 +8,7 @@ import Gist from './components/Gist';
 import GistView from './components/GistView';
 import './App.css';
 
-export default() => {
+const App = () => {
   return (
     <Router>
       <Switch>
@@ -18,3 +18,5 @@ export default() => {
     </Router>
   );
 };
+
+export default App;
