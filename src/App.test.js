@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import Gist from './components/Gist';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders Gist List', async() => {
+  render(<Gist />);
+  expect(screen.getByText(/Gist List/i)).toBeInTheDocument();
 });

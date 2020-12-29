@@ -9,6 +9,7 @@ import {
   Spin,
   Input,
   Table,
+  Typography,
   Space,
   Radio
 } from 'antd';
@@ -26,6 +27,7 @@ import Layout from '../../common/Layout';
 const octokit = new Octokit();
 const { Column } = Table;
 const { Search } = Input;
+const { Title } = Typography;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const Gist = () => {
@@ -100,6 +102,7 @@ const Gist = () => {
   };
 
   return <Layout page={"gist"}>
+    <Title level={3}>Gist List</Title>
     <GistBlock>
       <SearchBlock>
         <Search

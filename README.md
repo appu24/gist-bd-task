@@ -18,3 +18,6 @@ npm run start
 ```
 
 The webpage can be found at [http://localhost:3000/](http://localhost:3000/)
+
+### TODO
+* Add more unit tests
