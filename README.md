@@ -7,14 +7,14 @@ Install requirements
 npm i
 ```
 
-Run the following command for development mode:
-```
-npm run dev
-```
-
-Or run the following command:
+Use the following command for run the Project:
 ```
 npm run start
+```
+
+Use the following command to run unit tests:
+```
+npm run test
 ```
 
 The webpage can be found at [http://localhost:3000/](http://localhost:3000/)
